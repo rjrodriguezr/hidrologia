@@ -1,0 +1,84 @@
+<form ng-submit="save(form)" name="form"  novalidate="">
+  
+  <div class="modal-header">
+    <h3 class="modal-title">Control Canales</h3>
+  </div>
+  <div class="modal-body">  
+    
+    
+    <!-- INIT Dates -->
+    <div class="row">
+      <!-- INIT InitDate -->
+      <div class="col-lg-6" ng-hide="{{id > 0}}">        
+        <div class="form-group" ng-class="{'has-error': !form.date.$valid && form.$submitted}">
+          <label class="control-label">Fecha</label>
+          <input class="form-control" moment-picker name="date" placeholder="" locale="en" format="DD/MM/YYYY HH:mm" start-view="month" ng-model="date">
+          <form-error input-name="date" form='form'></form-error>
+        </div>        
+      </div>
+
+      <div class="col-lg-6" ng-show="{{id > 0}}">        
+        <div class="form-group">
+          <label class="control-label">Fecha</label>
+          <input ng-model="canalControl.hcco_fecha" name="" type="text" class="form-control" disabled/>
+        </div>        
+      </div>
+      <!-- END InitDate -->
+      
+      <div class="col-lg-6" ng-hide="{{id > 0}}">
+        <div class="form-group" ng-class="{'has-error': !form.canal.$valid && form.$submitted}">
+          <label class="control-label">Canal</label>
+          
+          <ui-select ng-model="canal" name="canal" on-select="changeCanal($item, $model)" ng-required="true">
+            <ui-select-match allow-clear="true" resetsearchmodel>
+              <span ng-bind="$select.selected.hica_canal_id + ' ' + $select.selected.hica_nombre"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="canal in (canales | filter: $select.search) track by canal.hica_canal_id">
+              <span ng-bind="canal.hica_canal_id + ' ' + canal.hica_nombre"></span>
+            </ui-select-choices>
+          </ui-select>
+          <form-error input-name="canal" form='form'></form-error>
+        </div>
+      </div>
+
+      <div class="col-lg-6" ng-show="{{id > 0}}">
+        <div class="form-group">
+          <label class="control-label">Canal</label>
+          <input ng-model="canal.hica_nombre" name="" type="text" class="form-control" disabled/>          
+        </div>
+      </div>
+    </div>
+    <!-- END Dates -->
+    
+    <!-- INIT Detail -->
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hcco_nivel.$valid && form.$submitted}">
+          <label class="control-label">Nivel (m)</label>
+          <input ng-model="canalControl.hcco_nivel" name="hcco_nivel" type="number" class="form-control" ng-required="true" min="{{umbral.hium_minimo}}" max="{{umbral.hium_maximo}}"/>
+          <form-error input-name="hcco_nivel" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hcco_caudal.$valid && form.$submitted}">
+          <label class="control-label">Caudal (m3/s)</label>
+          <input ng-model="canalControl.hcco_caudal" name="hcco_caudal" type="number" class="form-control" ng-disabled="canal.hica_editcaudal == null" ng-required="canal.hica_editcaudal != null" min="0"></input>
+        </div>
+      </div>
+    </div>
+    <!-- END Detail -->
+    
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-lg-1 col-lg-offset-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div class="col-lg-1 col-lg-offset-2">
+        <button class="btn btn-primary" type="button" ng-click="cancelSave()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+</form>

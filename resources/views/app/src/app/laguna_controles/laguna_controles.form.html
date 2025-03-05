@@ -1,0 +1,105 @@
+<form ng-submit="save(form)" name="form"  novalidate="">
+  
+  <div class="modal-header">
+    <h3 class="modal-title">Control Lagunas</h3>
+  </div>
+  <div class="modal-body"> 
+    <!-- INIT Dates -->
+    <div class="row">
+      <div class="col-lg-6" ng-hide="{{id > 0}}">
+        <!-- INIT InitDate -->
+        <label class="control-label">Fecha</label>
+        <input class="form-control" moment-picker name="date" placeholder="" locale="en" format="DD/MM/YYYY HH:mm" start-view="month" ng-model="date">
+      </div>
+
+      <div class="col-lg-6" ng-show="{{id > 0}}">
+        <!-- INIT InitDate -->
+        <label class="control-label">Fecha</label>
+        <input ng-model="lagunaControl.hlco_fecha" name="" type="text" class="form-control" disabled/>
+      </div>
+      <!-- END InitDate -->
+      <div class="col-lg-6" ng-hide="{{id > 0}}">
+        <div class="form-group" ng-class="{'has-error': !form.laguna.$valid && form.$submitted}">
+          <label class="control-label">Laguna</label>
+          
+          <ui-select ng-model="laguna" name="laguna" on-select="changeLaguna($item, $model)" ng-required="true">
+            <ui-select-match allow-clear="true" hila_laguna_id>
+              <span ng-bind="$select.selected.HILA_LAGUNA_ID + ' ' + $select.selected.hila_nombre"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="laguna in (lagunas | filter: $select.search) track by laguna.hila_laguna_id">
+              <span ng-bind="laguna.hila_laguna_id + ' ' + laguna.hila_nombre"></span>
+            </ui-select-choices>
+          </ui-select>
+          <form-error input-name="laguna" form='form'></form-error>
+        </div>
+      </div>
+
+      <div class="col-lg-6" ng-show="{{id > 0}}">
+        <div class="form-group">
+          <label class="control-label">Laguna</label>
+          <input ng-model="laguna.hila_nombre" name="" type="text" class="form-control" disabled/>          
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hlco_nivel.$valid && form.$submitted}">
+          <label class="control-label">Nivel (m)</label>
+          <input ng-model="lagunaControl.hlco_nivel" name="hlco_nivel" type="number" class="form-control" ng-required="true" min="{{umbral.hium_minimo}}" max="{{umbral.hium_maximo}}" ng-blur="getUmbral(laguna.hila_nombre, lagunaControl.hlco_nivel)" />
+          <form-error input-name="hlco_nivel" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hlco_apertura.$valid && form.$submitted}">
+          <label class="control-label">Apertura</label>
+          <input ng-model="lagunaControl.hlco_apertura" name="hlco_apertura" type="number" class="form-control" ng-required="true"  min="0"/>
+          <form-error input-name="hlco_apertura" form='form'></form-error>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hlco_rebose.$valid && form.$submitted}">
+          <label class="control-label">Rebose (m3/s)</label>
+          <input ng-model="lagunaControl.hlco_rebose" name="hlco_rebose" type="number" class="form-control" ng-required="true"  min="0"/>
+          <form-error input-name="hlco_rebose" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hlco_filtracion.$valid && form.$submitted}">
+          <label class="control-label">Filtración (m3/s)</label>
+          <input ng-model="lagunaControl.hlco_filtracion" name="hlco_filtracion" type="number" class="form-control" ng-required="true"  min="0"/>
+          <form-error input-name="hlco_filtracion" form='form'></form-error>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group" ng-class="{'has-error': !form.hlco_caudal.$valid && form.$submitted}">
+          <label class="control-label">Caudal (m3/s)</label>
+          <input ng-model="lagunaControl.hlco_caudal" name="hlco_caudal" type="number" class="form-control"  ng-disabled="laguna.hila_editcaudal == null"  ng-required="laguna.hila_editcaudal != null"/>
+          <form-error input-name="hlco_caudal" form='form'></form-error>
+        </div>
+      </div>
+      
+    </div>
+        
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-lg-1 col-lg-offset-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div class="col-lg-1 col-lg-offset-2">
+        <button class="btn btn-primary" type="button" ng-click="cancelSave()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+</form>
+
+
+

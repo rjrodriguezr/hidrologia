@@ -1,0 +1,9 @@
+<div ng-show="form.{{field}}.$error && form.$submitted" ng-messages="objField.$error" ng-init="min='6'">
+	<div class="has-error control-label" ng-message="required">Este campo es requerido</div>
+	<div class="has-error control-label" ng-message="email">No es un email válido</div>
+	<div class="has-error control-label" ng-message="minlength">Este campo debe ser de mínimo {{min}} caracteres.</div>
+	<div class="has-error control-label" ng-message="maxlength">Este campo debe ser máximo {{max}} caracteres</div>
+	<div class="has-error control-label" ng-message="decimal">Este campo debe ser numerico</div>
+	<div class="has-error control-label" ng-message="min">Los valores no pueden ser negativos</div>
+	<div class="has-error control-label" ng-message="max">El Caudal Captado no puede ser mayor al Caudal Total</div>
+</div>

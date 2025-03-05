@@ -1,0 +1,57 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div style="float:left">
+    <a  href="index.html"><img style="border:0px" src="assets/images/logo.gif" alt="Logo indra"/></a>
+  </div>
+  <div class="navbar-header">
+    <a class="navbar-brand" href="index.html">Hidrología</a>
+  </div>
+
+  <!-- /.navbar-header -->
+
+  <ul class="nav navbar-top-links navbar-right">
+    <li class="dropdown" dropdown>
+      <a class="dropdown-toggle" dropdown-toggle  href="#">
+        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <!--<li><a href="{{link}}"><i class="fa fa-user fa-fw"></i>Perfil de usuario</a></li>-->
+        <li class="divider"></li>
+        <li><a style="cursor: auto" href="../public/logout" ng-click="vm.logout()"><i class="fa fa-sign-out fa-fw"></i>Cerrar sesión</a></li>
+      </ul>
+    </li>
+  </ul>
+  <!-- /.navbar-top-links -->
+  <div class="navbar-default sidebar" role="navigation">
+
+    <div class="sidebar-nav navbar-collapse">
+      <button ng-click="vm.toggleMenu()" type="button" class="btn btn-sm btn-default toggler" ng-class="vm.toggleClass">
+        <span class="glyphicon" ng-class="vm.toggleClassIcon"></span>
+      </button>
+
+      <ul class="nav" id="side-menu" ng-show="vm.showMenu">
+
+        <li ng-repeat="group in vm.permissions">
+          <a href="">
+            <span class="sidebar-nav-item-icon fa fa-github fa-lg"></span>
+            <span class="sidebar-nav-item">{{group.parent.name}}</span>
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse" >
+            <li ng-repeat="permission in group.childs">
+              <a ui-sref="{{permission.route}}" >
+                <span class="sidebar-nav-item-icon fa fa-code-fork"></span>
+                {{permission.name}}
+              </a>
+            </li>
+          </ul>
+          <!-- /.nav-second-level -->
+        </li>
+
+
+      </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+  </div>
+  <!-- /.navbar-static-side -->
+</nav>

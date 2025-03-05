@@ -1,0 +1,143 @@
+<form ng-submit="save(form)" name="form"  novalidate="">
+  
+  <div class="modal-header">
+    <h3 class="modal-title">Control Chinango</h3>
+  </div>
+  <div class="modal-body">
+    
+    <!-- INIT Dates -->
+    <div class="row" ng-hide="{{id || fechaNum}}">
+      <div class="col-lg-3">
+        <!-- INIT InitDate -->
+        <div class="form-group" ng-class="{'has-error': !form.date.$valid && form.$submitted}">
+          <label class="control-label">Fecha</label>
+          <input class="form-control" moment-picker name="date" placeholder="" locale="en" format="DD/MM/YYYY HH:[00]" start-view="month" ng-model="date">
+          <form-error input-name="date" form='form'></form-error>
+        </div>
+        <!-- END InitDate -->
+      </div>
+    </div>
+    
+    <div class="row" ng-show="{{id > 0 || fechaNum < 0}}">
+      <div class="col-lg-3">
+        <!-- INIT InitDate -->
+        
+        <div class="form-group">
+          <label class="control-label">Fecha</label>
+          <input ng-model="control.hiyd_fecha" name="" type="text" class="form-control" disabled/>
+        </div>
+        <!-- END InitDate -->
+      </div>
+      
+    </div>
+    <!-- END Dates -->
+    
+    <div class="row">
+      <div class="panel-default">
+        <div class="panel-heading">Tulumayo</div>
+      </div>
+    </div>
+    
+    <!-- INIT Detail -->
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hiyd_nivel.$valid && form.$submitted}">
+          <label class="control-label">Nivel (m)</label>
+          <input ng-model="control.hiyd_nivel" name="hiyd_nivel" type="number" class="form-control" ng-required="true" min="0" />
+          <form-error input-name="hiyd_nivel" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hiyd_concen_solidos.$valid && form.$submitted}">
+          <label class="control-label">Concentración sólidos (g/l)</label>
+          <input ng-model="control.hiyd_concen_solidos" name="hiyd_concen_solidos" type="number" class="form-control" ng-required="true" min="0" />
+          <form-error input-name="hiyd_concen_solidos" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hiyd_q_captado.$valid && form.$submitted}">
+          <label class="control-label">Caudal captado (m3/s)</label>
+          <input ng-model="control.hiyd_q_captado" name="hiyd_q_captado" type="number" class="form-control" ng-required="true" min="0" />
+          <form-error input-name="hiyd_q_captado" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hiyd_q_total_disp.$valid && form.$submitted}">
+          <label class="control-label">Caudal Total (m3/s)</label>
+          <input ng-model="control.hiyd_q_total_disp" name="hiyd_q_total_disp" type="number" class="form-control" min="0" ng-required="true"/>
+          <form-error input-name="hiyd_q_total_disp" form='form'></form-error>
+        </div>
+      </div>
+    </div>
+    <!-- END Detail -->
+    
+    <!-- INIT Detail -->
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="form-group">
+          <label class="control-label">Volumen (M m3)</label>
+          <input ng-model="control.hiyd_volumen_cal" name="hiyd_volumen_cal" type="text" class="form-control" readonly min="0"/>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hiyd_q_desvio_rio.$valid && form.$submitted}">
+          <label class="control-label">Desv al Rio (m3/S)</label>
+          <input ng-model="control.hiyd_q_desvio_rio" name="hiyd_q_desvio_rio" type="number" class="form-control" min="0" ng-required="true"/>
+          <form-error input-name="hiyd_q_desvio_rio" form='form'></form-error>
+        </div>
+      </div>
+      
+    </div>
+    <!-- END Detail -->
+    
+    <div class="row">
+      <div class="panel-default">
+        <div class="panel-heading">Tarma</div>
+      </div>
+    </div>
+    
+    <!-- INIT Detail -->
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hitd_concen_solidos_t.$valid && form.$submitted}">
+          <label class="control-label">Concentración sólidos (g/l)</label>
+          <input ng-model="control.hitd_concen_solidos_t" name="hitd_concen_solidos_t" type="number" class="form-control" ng-required="true" min="0"/>
+          <form-error input-name="hitd_concen_solidos_t" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': !form.hitd_q_captado_t.$valid && form.$submitted}">
+          <label class="control-label">Caudal captado (m3/s)</label>
+          <input ng-model="control.hitd_q_captado_t" name="hitd_q_captado_t" type="number" class="form-control" ng-required="true" min="0" max="{{control.hitd_q_total_disp_t}}" />
+          <form-error input-name="hitd_q_captado_t" form='form'></form-error>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="form-group" ng-class="{'has-error': (!form.hitd_q_total_disp_t.$valid || form.hitd_q_total_disp_t.$error.min) && form.$submitted}">
+          <label class="control-label">Caudal total (m3/s)</label>
+          <input ng-model="control.hitd_q_total_disp_t" name="hitd_q_total_disp_t" type="number" class="form-control" min="0" ng-required="true"/>
+          <form-error input-name="hitd_q_total_disp_t" form='form'></form-error>
+        </div>
+      </div>
+    </div>
+    <!-- END Detail -->
+  </div>
+  
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-lg-1 col-lg-offset-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div class="col-lg-1 col-lg-offset-2">
+        <button class="btn btn-primary" type="button" ng-click="cancelSave()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+</form>         

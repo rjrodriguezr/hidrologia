@@ -1,0 +1,226 @@
+<form ng-submit="save(form)" name="form"  novalidate="">
+  
+  <div class="modal-header">
+
+    <h3 class="modal-title col-lg-4">Control Rímac</h3>
+
+    <div class="form-inline col-lg-8 text-right" ng-hide="{{id || fechaNum}}">
+      <label class="control-label col-lg-6" style="top: 8px;">Fecha</label>
+      <input class="form-control col-lg-6" moment-picker name="date" locale="en" format="DD/MM/YYYY HH:[00]" start-view="month" ng-model="date">
+    </div>
+
+    <div class="form-inline col-lg-8 text-right" ng-show="{{id > 0 || fechaNum < 0}}">
+      <label class="control-label col-lg-6" style="top: 8px;">Fecha</label>
+      <input ng-model="control.hisd_fecha" name="" type="text" class="form-control col-lg-6" disabled/>
+    </div>
+
+  </div>
+  <div class="modal-body">    
+      
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="panel-default">
+            <div class="panel-heading">Toma Sheque</div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_nivel.$valid && form.$submitted}">
+            <label class="control-label">Nivel (m)</label>
+            <input ng-model="control.hisd_nivel" name="hisd_nivel" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hisd_nivel" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_conce_solidos.$valid && form.$submitted}">
+            <label class="control-label">Concentración de sólidos (g/l)</label>
+            <input ng-model="control.hisd_conce_solidos" name="hisd_conce_solidos" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hisd_conce_solidos" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="control-label">Volumen (Mm3)</label>
+            <input readonly="" ng-model="control.hisd_volumen_cal" name="hisd_volumen_cal" type="text" class="form-control"/>
+          </div>
+        </div>       
+        
+      </div>
+      <!-- END Detail -->
+      
+      
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-3">
+
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_q_sacsa.$valid && form.$submitted}">
+            <label class="control-label">Rio Sacsa (m3/s)</label>
+            <input ng-model="control.hisd_q_sacsa" name="hisd_q_sacsa" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hisd_q_sacsa" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_q_desvio_rio.$valid && form.$submitted}">
+            <label class="control-label">Desv al Rio (m3/S)</label>
+            <input ng-model="control.hisd_q_desvio_rio" name="hisd_q_desvio_rio" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hisd_q_desvio_rio" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_q_canchis.$valid && form.$submitted}">
+            <label class="control-label">Rio Canchis (m3/S)</label>
+            <input ng-model="control.hisd_q_canchis" name="hisd_q_canchis" type="text" class="form-control" readonly />
+            <form-error input-name="hisd_q_canchis" form='form'></form-error>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="control-label">Presa Sheque (m3/s)</label>
+            <input ng-model="control.hisd_q_presa_cal" name="hisd_q_presa_cal" type="text" class="form-control" readonly />
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_q_pillirhua.$valid && form.$submitted}">
+            <label class="control-label">Rio Pillirhua (m3/s)</label>
+            <input ng-model="control.hisd_q_pillirhua" name="hisd_q_pillirhua" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hisd_q_pillirhua" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hisd_q_total_cal.$valid && form.$submitted}">
+            <label class="control-label">Caudal Total Sheque (m3/s)</label>
+            <input ng-model="control.hisd_q_total_cal" ng-required="true"  name="hisd_q_total_cal" type="number" class="form-control" min="0" />
+            <form-error input-name="hisd_q_total_cal" form='form'></form-error>
+          </div>
+        </div>
+      </div>
+      <!-- END Detail -->
+            
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="panel-default center">
+            <div class="panel-heading">Toma Tamboraque</div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_concen_solidos_t.$valid && form.$submitted}">
+            <label class="control-label">Concentración de sólidos (g/l)</label>
+            <input ng-model="control.hitd_concen_solidos_t" name="hitd_concen_solidos_t" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_concen_solidos_t" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_q_captado_t.$valid && form.$submitted}">
+            <label class="control-label">Caudal captado (m3/s)</label>
+            <input ng-model="control.hitd_q_captado_t" name="hitd_q_captado_t" type="number" class="form-control" min="0" max="{{control.hitd_q_total_disp_t}}" ng-required="true"/>
+            <form-error input-name="hitd_q_captado_t" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': (!form.hitd_q_total_disp_t.$valid || form.hitd_q_total_disp_t.$error.min) && form.$submitted}">
+            <label class="control-label">Caudal total (m3/s)</label>
+            <input ng-model="control.hitd_q_total_disp_t" name="hitd_q_total_disp_t" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_q_total_disp_t" form='form'></form-error>
+          </div>
+        </div>
+      </div>
+      <!-- END Detail -->
+      
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="panel-default center">
+            <div class="panel-heading">Toma Huampani</div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_concen_solidos_h.$valid && form.$submitted}">
+            <label class="control-label">Concentración de sólidos (g/l)</label>
+            <input ng-model="control.hitd_concen_solidos_h" name="hitd_concen_solidos_h" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_concen_solidos_h" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_q_captado_h.$valid && form.$submitted}">
+            <label class="control-label">Caudal captado (m3/s)</label>
+            <input ng-model="control.hitd_q_captado_h" name="hitd_q_captado_h" type="number" class="form-control" min="0" max="{{control.hitd_q_total_disp_h}}" ng-required="true"/>
+            <form-error input-name="hitd_q_captado_h" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': (!form.hitd_q_total_disp_h.$valid || form.hitd_q_total_disp_h.$error.min) && form.$submitted}">
+            <label class="control-label">Caudal total (m3/s)</label>
+            <input ng-model="control.hitd_q_total_disp_h" name="hitd_q_total_disp_h" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_q_total_disp_h" form='form'></form-error>
+          </div>
+        </div>
+      </div>
+      <!-- END Detail -->
+      
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="panel-default center">
+            <div class="panel-heading">Toma Moyopampa</div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_concen_solidos_m.$valid && form.$submitted}">
+            <label class="control-label">Concentración de sólidos (g/l)</label>
+            <input ng-model="control.hitd_concen_solidos_m" name="hitd_concen_solidos_m" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_concen_solidos_m" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': !form.hitd_q_captado_m.$valid && form.$submitted}">
+            <label class="control-label">Caudal captado (m3/s)</label>
+            <input ng-model="control.hitd_q_captado_m" name="hitd_q_captado_m" type="number" class="form-control" min="0" max="{{control.hitd_q_total_disp_m}}" ng-required="true"/>
+            <form-error input-name="hitd_q_captado_m" form='form'></form-error>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="form-group" ng-class="{'has-error': (!form.hitd_q_total_disp_m.$valid || form.hitd_q_total_disp_m.$error.min) && form.$submitted}">
+            <label class="control-label">Caudal total (m3/s)</label>
+            <input ng-model="control.hitd_q_total_disp_m" name="hitd_q_total_disp_m" type="number" class="form-control" min="0" ng-required="true"/>
+            <form-error input-name="hitd_q_total_disp_m" form='form'></form-error>
+          </div>
+        </div>
+      </div>
+      <!-- END Detail -->
+    </div>
+    
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-lg-1 col-lg-offset-3">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+        <div class="col-lg-1 col-lg-offset-3">
+          <button class="btn btn-primary" type="button" ng-click="cancelSave()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+    
+  </form>

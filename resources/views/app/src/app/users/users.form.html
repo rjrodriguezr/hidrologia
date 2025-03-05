@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Usuarios
+      <button class="btn btn-primary" ui-sref="page.users-list">Volver al listado</button>
+    </h1>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Formulario de usuarios
+          </div>
+          <div class="panel-body">
+            <form ng-submit="save(form)" name="form"  novalidate="">
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group" ng-class="{'has-error': !form.name.$valid && form.$submitted}">
+                    <label class="control-label">Nombre</label>
+                    <input ng-model="user.name" name="name" type="text" class="form-control" ng-required="true"/>
+                    <form-error input-name="name" form='form'></form-error>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group" ng-class="{'has-error': !form.username.$valid && form.$submitted}">
+                    <label class="control-label">Usuario</label>
+                    <input ng-model="user.username" name="username" type="text" class="form-control" ng-required="true"/>
+                    <form-error input-name="username" form='form'></form-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6" ng-show="!activedirectory"> 
+                  <!--  -->
+                  <div class="form-group" ng-class="{'has-error': !form.password.$valid && form.$submitted}">
+                    <label class="control-label">Password</label>
+                    <input ng-model="user.password" name="password" type="password" class="form-control" ng-required="false" ng-pattern='/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#\$%\^&\*]).{8,100}$/'/>
+                    <form-error input-name="password" form='form'></form-error>
+                  </div>
+                </div>
+
+                <div class="col-lg-6" ng-show="!activedirectory">
+                  <div class="form-group" ng-class="{'has-error': !form.email.$valid && form.$submitted}">
+                    <label class="control-label">Correo</label>
+                    <input ng-model="user.email" name="email" type="email" class="form-control" ng-required="!activedirectory"/>
+                    <form-error input-name="email" form='form'></form-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group" ng-class="{'has-error': !form.profile.$valid && form.$submitted}">
+                    <label class="control-label">Perfil</label>
+
+                    <ui-select ng-model="profile" on-select="changeProfile($item, $model)" name="profile" ng-required="true">
+                      <ui-select-match allow-clear="true">
+                        <span ng-bind="$select.selected.id + ' ' + $select.selected.name"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="profile in (profiles | filter: $select.search) track by profile.id">
+                        <span ng-bind="profile.id + ' ' + profile.name"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                    <form-error input-name="profile" form='form'></form-error>
+                  </div>
+                </div>
+                <div class="col-lg-6">                  
+                  <input type="checkbox" class="" ng-model="activedirectory" name="activedirectory" value=1>
+                  <label class="control-label">Directorio Activo?</label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+            <br>
+            <alert ng-show="alert.show" type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+          </div>
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>

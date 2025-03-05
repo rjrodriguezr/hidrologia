@@ -1,0 +1,9 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{modal.title}}</h3>
+</div>
+<div class="modal-body" ng-bind-html="modal.message"></div>
+<div class="modal-footer">
+  <div class="row">
+    <div ng-repeat="option in modal.options" class="col-lg-2"><button class="btn btn-primary" type="button" ng-click="option.action()()">{{option.text}}</button></div>
+  </div>
+</div>

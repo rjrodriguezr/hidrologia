@@ -1,0 +1,230 @@
+<form ng-submit="save(form)" name="form"  novalidate="">
+
+  <div class="modal-header">
+    <h3 class="modal-title">Control Meteorología</h3>
+  </div>
+  <div class="modal-body">
+    
+      <!-- INIT Dates -->
+      <div class="row" ng-hide="{{id > 0}}">
+        <div class="col-lg-3">
+          <!-- INIT InitDate -->
+          <div class="form-group" ng-class="{'has-error': !form.date.$valid && form.$submitted}">
+            <label class="control-label">Fecha</label>
+              <input class="form-control" moment-picker name="date" placeholder="dd/mm/aaaa" locale="en" format="DD/MM/YYYY" start-view="month" ng-model="date">
+            <form-error input-name="date" form='form'></form-error>
+          </div>
+          <!-- END InitDate -->
+        </div>
+
+      </div>
+
+      <div class="row" ng-show="{{id > 0}}">
+        <div class="col-lg-3">
+          <!-- INIT InitDate -->
+          
+          <div class="form-group">
+            <label class="control-label">Fecha</label>
+            <input ng-model="control.hime_fecha" name="" type="text" class="form-control" disabled/>
+          </div>
+          <!-- END InitDate -->
+        </div>
+        
+      </div>
+
+
+      <!-- END Dates -->
+
+      <div class="row">
+        <div class="panel-default">
+          <div class="panel-heading">Marcapomacocha</div>
+        </div>
+      </div>
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.pluviometria_1.$valid && form.$submitted}">
+            <label class="control-label">Pluviómetro (mm)</label>
+            <input ng-model="control.pluviometria_1" name="pluviometria_1" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="pluviometria_1" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.evaporacion_1.$valid && form.$submitted}">
+            <label class="control-label">Evaporímetro (mm)</label>
+            <input ng-model="control.evaporacion_1" name="evaporacion_1" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="evaporacion_1" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.humedad_rela_1.$valid && form.$submitted}">
+            <label class="control-label">Higrómetro (%)</label>
+            <input ng-model="control.humedad_rela_1" name="humedad_rela_1" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="humedad_rela_1" form='form'></form-error>
+          </div>
+        </div>
+
+      </div>
+      <!-- END Detail -->
+
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_max_1.$valid && form.$submitted}">
+            <label class="control-label">Temp Máxima (°C)</label>
+            <input ng-model="control.temp_max_1" name="temp_max_1" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="temp_max_1" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_min_1.$valid && form.$submitted}">
+            <label class="control-label">Temp Mínima (°C)</label>
+            <input ng-model="control.temp_min_1" name="temp_min_1" type="number" class="form-control" ng-required="true" />
+            <form-error input-name="temp_min_1" form='form'></form-error>
+          </div>
+        </div>
+        
+      </div>
+      <!-- END Detail -->
+
+
+      <div class="row">
+        <div class="panel-default">
+          <div class="panel-heading">Milloc</div>
+        </div>
+      </div>
+
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.pluviometria_2.$valid && form.$submitted}">
+            <label class="control-label">Pluviómetro (mm)</label>
+            <input ng-model="control.pluviometria_2" name="pluviometria_2" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="pluviometria_2" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.evaporacion_2.$valid && form.$submitted}">
+            <label class="control-label">Evaporímetro (mm)</label>
+            <input ng-model="control.evaporacion_2" name="evaporacion_2" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="evaporacion_2" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.humedad_rela_2.$valid && form.$submitted}">
+            <label class="control-label">Higrómetro (%)</label>
+            <input ng-model="control.humedad_rela_2" name="humedad_rela_2" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="humedad_rela_2" form='form'></form-error>
+          </div>
+        </div>
+
+      </div>
+      <!-- END Detail -->
+
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_max_2.$valid && form.$submitted}">
+            <label class="control-label">Temp Máxima (°C)</label>
+            <input ng-model="control.temp_max_2" name="temp_max_2" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="temp_max_2" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_min_2.$valid && form.$submitted}">
+            <label class="control-label">Temp Mínima (°C)</label>
+            <input ng-model="control.temp_min_2" name="temp_min_2" type="number" class="form-control" ng-required="true"/>
+            <form-error input-name="temp_min_2" form='form'></form-error>
+          </div>
+        </div>
+        
+      </div>
+      <!-- END Detail -->
+
+      <div class="row">
+        <div class="panel-default">
+          <div class="panel-heading">Yuracmayo</div>
+        </div>
+      </div>
+
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.pluviometria_3.$valid && form.$submitted}">
+            <label class="control-label">Pluviómetro (mm)</label>
+            <input ng-model="control.pluviometria_3" name="pluviometria_3" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="pluviometria_3" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.evaporacion_3.$valid && form.$submitted}">
+            <label class="control-label">Evaporímetro (mm)</label>
+            <input ng-model="control.evaporacion_3" name="evaporacion_3" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="evaporacion_3" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.humedad_rela_3.$valid && form.$submitted}">
+            <label class="control-label">Higrómetro (%)</label>
+            <input ng-model="control.humedad_rela_3" name="humedad_rela_3" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="humedad_rela_3" form='form'></form-error>
+          </div>
+        </div>
+
+      </div>
+      <!-- END Detail -->
+
+
+      <!-- INIT Detail -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_max_3.$valid && form.$submitted}">
+            <label class="control-label">Temp Máxima (°C)</label>
+            <input ng-model="control.temp_max_3" name="temp_max_3" type="number" class="form-control" ng-required="true" min="0"/>
+            <form-error input-name="temp_max_3" form='form'></form-error>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group" ng-class="{'has-error': !form.temp_min_3.$valid && form.$submitted}">
+            <label class="control-label">Temp Mínima (°C)</label>
+            <input ng-model="control.temp_min_3" name="temp_min_3" type="number" class="form-control" ng-required="true"/>
+            <form-error input-name="temp_min_3" form='form'></form-error>
+          </div>
+        </div>
+        
+      </div>
+      <!-- END Detail -->
+
+
+  </div>
+
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-lg-1 col-lg-offset-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div class="col-lg-1 col-lg-offset-2">
+        <button class="btn btn-primary" type="button" ng-click="cancelSave()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+
