@@ -1,39 +1,44 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var browserSync = require('browser-sync');
+const browserSync = require('browser-sync');
 
 function isOnlyChange(event) {
   return event.type === 'changed';
 }
 
-gulp.task('watch', ['inject'], function () {
+// Tarea para observar cambios en los archivos
+gulp.task('watch', gulp.series('inject', function () {
 
-  gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject']);
+  // Observar cambios en archivos HTML y recargar
+  gulp.watch([path.join(conf.paths.src, '/*.html')], gulp.series('inject'));
 
+  // Observar cambios en archivos CSS y SCSS
   gulp.watch([
     path.join(conf.paths.src, '/app/**/*.css'),
     path.join(conf.paths.src, '/app/**/*.scss')
-  ], function(event) {
-    if(isOnlyChange(event)) {
-      gulp.start('styles');
+  ], function (event) {
+    if (isOnlyChange(event)) {
+      gulp.series('styles')();
     } else {
-      gulp.start('inject');
+      gulp.series('inject')();
     }
   });
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.js'), function(event) {
-    if(isOnlyChange(event)) {
-      gulp.start('scripts');
+  // Observar cambios en archivos JS
+  gulp.watch(path.join(conf.paths.src, '/app/**/*.js'), function (event) {
+    if (isOnlyChange(event)) {
+      gulp.series('scripts')();
     } else {
-      gulp.start('inject');
+      gulp.series('inject')();
     }
   });
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
+  // Observar cambios en archivos HTML y recargar el navegador
+  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function (event) {
     browserSync.reload(event.path);
   });
-});
+}));

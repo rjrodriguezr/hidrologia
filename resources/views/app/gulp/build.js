@@ -45,16 +45,16 @@ gulp.task('html', gulp.series('partials', function () {
 
   return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
     .pipe($.inject(partialsInjectFile, partialsInjectOptions))
-    .pipe($.useref()) // Eliminar .assets() ya que está obsoleto
-    .pipe($.rev())
+    .pipe($.useref()) // Combina y referencia archivos CSS y JS
+    .pipe($.rev()) // Agrega un hash a los nombres de los archivos
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe($.csso())
+    .pipe($.csso()) // Minifica CSS
     .pipe(cssFilter.restore())
-    .pipe($.revReplace())
+    .pipe($.revReplace()) // Reemplaza las referencias en los archivos HTML
     .pipe(gulp.dest(path.join(conf.paths.dist, '../../../../public')))
     .pipe(htmlFilter)
     .pipe(htmlmin({

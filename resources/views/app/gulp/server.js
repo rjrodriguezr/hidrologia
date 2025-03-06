@@ -1,31 +1,34 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var browserSync = require('browser-sync');
-var browserSyncSpa = require('browser-sync-spa');
-
-var util = require('util');
-
-var proxyMiddleware = require('http-proxy-middleware');
+const browserSync = require('browser-sync');
 
 function browserSyncInit(baseDir, browser) {
   browser = browser === undefined ? 'default' : browser;
 
-  var routes = null;
-  if(baseDir === conf.paths.src || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.src) !== -1)) {
-    routes = {
-      '/bower_components': 'bower_components'
-    };
-  }
+  // Configuración de BrowserSync
+  const server = {
+    baseDir: baseDir,
+    routes: {} // No hay rutas adicionales para bower_components
+  };
+
+  // Iniciar BrowserSync
+  browserSync.instance = browserSync.init({
+    startPath: '/',
+    server: server,
+    browser: browser
+  });
 }
 
-gulp.task('serve', ['watch'], function () {
+// Tarea para servir la aplicación en modo desarrollo
+gulp.task('serve', gulp.series('watch', function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
-});
+}));
 
-gulp.task('serve:dist', ['build'], function () {
+// Tarea para servir la aplicación en modo producción (dist)
+gulp.task('serve:dist', gulp.series('build', function () {
   browserSyncInit(conf.paths.dist);
-});
+}));
