@@ -1,28 +1,26 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var browserSync = require('browser-sync');
-
-var $ = require('gulp-load-plugins')();
-
-var wiredep = require('wiredep').stream;
-var _ = require('lodash');
+const $ = require('gulp-load-plugins')();
+const inject = require('gulp-inject'); // Reemplazo de wiredep
 
 gulp.task('styles', function () {
-  var sassOptions = {
+  const sassOptions = {
     style: 'expanded'
   };
 
-  var injectFiles = gulp.src([
+  // Archivos SCSS de la aplicación para inyectar
+  const injectFiles = gulp.src([
     path.join(conf.paths.src, '/app/**/*.scss'),
     path.join('!' + conf.paths.src, '/app/index.scss')
   ], { read: false });
 
-  var injectOptions = {
-    transform: function(filePath) {
+  // Opciones para inyectar los archivos SCSS de la aplicación
+  const injectOptions = {
+    transform: function (filePath) {
       filePath = filePath.replace(conf.paths.src + '/app/', '');
       return '@import "' + filePath + '";';
     },
@@ -31,16 +29,14 @@ gulp.task('styles', function () {
     addRootSlash: false
   };
 
-
   return gulp.src([
     path.join(conf.paths.src, '/app/index.scss')
   ])
-    .pipe($.inject(injectFiles, injectOptions))
-    .pipe(wiredep(_.extend({}, conf.wiredep)))
+    .pipe(inject(injectFiles, injectOptions)) // Inyectar archivos SCSS de la aplicación
+    .pipe(inject(bowerFiles, { name: 'bower', ignorePath: 'bower_components' })) // Inyectar dependencias de Bower
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
-    .pipe(browserSync.reload({ stream: true }));
 });
